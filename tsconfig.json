@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "outFile": "./dist/app.js",
+    "rootDir": "./src", 
+
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

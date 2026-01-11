@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="hu" ng-app="NapTervezo">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nap Tervező</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            
+            background-color: #e2c1da59;
+            color: #555555;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            padding: 60px;
+        }
+
+        .cim{
+            font-family: cursive;
+        }
+
+        button { background-color: #d63384 !important; color: white !important}
+        .gomb:focus, .gomb:active {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+        
+        .pihiDoboz {
+            background-color: #e2c1da !important;
+            color: white !important;
+            font-weight: bold;
+            border: none !important;
+            border-radius: 5px;
+
+        }
+
+        .X:hover {
+            background-color: #555555 !important; color: white !important; border-color: #555555 !important;
+        }
+
+        .aLenyeg {
+            background-color: white;
+            color: #d63384;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.099);
+            width: 650px;
+            padding-bottom: 0px;
+
+        }
+
+        .osszesFeladat{
+            color: #555555;
+        }
+        .megHatravan{
+            font-weight: bold;
+        }
+
+        .pipa:checked{
+            background-color: #d65db1 !important;
+            border-color: #d65db1 !important;
+            
+        }
+
+        
+        .pipa:focus{
+            border-color: #d65db1 !important;
+            box-shadow: 0 0 0 0.25rem rgba(215, 140, 193, 0.25) !important;
+        }
+
+        .alsoSor{
+            padding: 0%;
+            padding-bottom: 10px;
+        }
+
+        .teendo:focus, .ido:focus, .kereses:focus{
+            border-color: #d65db1 !important;
+            box-shadow: 0 0 0 0.25rem rgba(215, 140, 193, 0.25) !important;
+        }
+
+        .pipalva{
+            color: #e2c1da;
+            text-decoration: line-through;
+        }
+
+        .idoDoboza{
+            background-color: #d63384;
+            padding: 7px;
+            padding-bottom: 1px;
+            padding-top: 0px;
+            border-radius: 5px;
+            color: white;
+        }
+        .idoHalvanyan{
+            background-color: #e2c1da;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    
+
+        <div class="aLenyeg">
+            <div class="text-center container mt-4" ng-controller="NapTervezoController as vm">
+                <h1 class="mb-2 cim"><img src="logo/logo.png" alt="Nap" width="60px"> Tervező</h1>
+                <div>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <input type="text" class="form-control teendo" placeholder="Teendő elnevezése" ng-model="vm.ujNev">
+                        </div>
+                        <div class="col-3">
+                            <input type="time" class="form-control ido" ng-model="vm.ujIdo">
+                        </div>
+                        <div class="col-3">
+                            <button class="btn w-100 gomb" ng-click="vm.letrehozas()" ng-disabled="!vm.ujNev || !vm.ujIdo">
+                                Létrehoz
+                            </button>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <hr class="text-muted">
+                            <input type="text" class="form-control kereses" placeholder="Keresés a feladatok között..." ng-model="vm.keresoSzoveg">
+                        </div>
+
+                    </div>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" 
+                        ng-repeat="t in vm.teendok | filter:vm.keresoSzoveg | orderBy:'ido' track by $index">
+                    
+                        <div>
+                            <button class="btn btn-sm X me-1" ng-click="vm.torles(t)">
+                                X
+                            </button>
+                            <input class="form-check-input me-1 pipa" type="checkbox" ng-model="t.kesz" ng-change="vm.mentes()">
+                            
+                            <span ng-class="{'text-decoration-line-through pipalva': t.kesz}">
+                                <strong>{{ t.nev }}</strong>
+                            </span>
+                        </div>
+                        <small class="ms-2 idoDoboza" ng-class="{'idoHalvanyan': t.kesz}">{{ t.ido }}</small>
+
+
+                    </li>
+                </ul>
+                <div class="alert text-center pihiDoboz" ng-show="vm.teendok.length == 0">
+                    Csak a pihi!
+                </div>
+                <hr class="text-muted">
+
+                <div class="alert mt-1 d-flex justify-content-between alsoSor">
+                    <span class="osszesFeladat">
+                        Összes feladat: <strong>{{ vm.osszesFeladat() }}</strong> db
+                    </span>
+                    <span class="megHatravan">
+                        Még hátra van: <strong>{{ vm.aktivFeladatok() }}</strong> db
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+    <script src="dist/app.js"></script>
+</body>
+
+</html>

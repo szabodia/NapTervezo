@@ -1,0 +1,47 @@
+# ---- OS / rendszer fájlok ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Editor / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---- Node / frontend ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---- PHP ----
+vendor/
+.env
+
+# ---- Composer ----
+composer.lock
+
+# ---- .NET / C# ----
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+
+# ---- Build / dist ----
+dist/
+build/
+
+# ---- IDE cache ----
+*.tmp
+*.temp
+
+# ---- XAMPP / local ----
+htdocs/
+mysql/data/
+
+# ---- Egyéb ----
+*.bak
+*.old
